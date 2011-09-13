@@ -1,7 +1,23 @@
 # you describe your data using the YAML notation here
 # and then load them using Fixtures.load("data.yml")
 
-# User(bob):
-#   email: bob@gmail.com
-#   password: secret
-#   fullname: Bob
+Scotch(balvenie):
+    name: Balvenie Doublewood
+    age: 12
+    distillery: Balvenie
+    description: Very smooth
+    imageUrl: http://www.thedrinkshop.com/images/products/main/2708/2708.jpg
+
+Scotch(glenlivet):
+    name: Glenlivet
+    age: 12
+    distillery: Glenlivet
+    description: Not so bad
+    imageUrl: http://www.thedrinkshop.com/images/products/main/306/306.jpg
+
+User(josh):
+   email: joshzana@gmail.com
+   fullname: Josh Zana 
+   facebookId: 12324
+   facebookToken: 90098098
+   scotches: [balvenie, glenlivet]

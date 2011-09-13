@@ -1,0 +1,14 @@
+# Java class files
+*.class
+
+# Local configuration file (sdk path, etc)
+local.properties
+.metadata/
+
+.classpath
+.project
+.settings/
+eclipse/
+test-result/
+tmp/
+
