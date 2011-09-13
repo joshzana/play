@@ -5,6 +5,9 @@
 # Home page
 GET     /                                       Application.index
 
+GET    /Scotches                                API.listScotches
+GET    /Users                                   API.listUsers
+
 # Ignore favicon requests
 GET     /favicon.ico                            404
 
