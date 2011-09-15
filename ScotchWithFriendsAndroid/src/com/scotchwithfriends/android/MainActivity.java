@@ -1,13 +1,10 @@
 package com.scotchwithfriends.android;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.http.*;
-import org.apache.http.client.*;
 import org.apache.http.client.methods.*;
 import org.json.*;
 
@@ -15,6 +12,7 @@ import android.app.Activity;
 import android.net.http.AndroidHttpClient;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -29,6 +27,9 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         list = (ListView)findViewById(R.id.list);
+        
+        LoadScotchesTask task = new LoadScotchesTask();
+        task.execute("Josh");
     }
     
     public class Scotch {
@@ -57,35 +58,31 @@ public class MainActivity extends Activity {
 			 HttpResponse response = null;
 			 
 			 try {
-				 response = client.execute(new HttpGet("http://localhost:9000/Scotches"));
+				 response = client.execute(new HttpGet("http://192.168.1.139:9000/Scotches"));
 				
-				 InputStream contentStream = response.getEntity().getContent();
-				 InputStreamReader  reader = new InputStreamReader(contentStream);
-				 int read;
-				 int offset = 0;
-				 int length = 500;
-				 char[] buffer = new char[(int) response.getEntity().getContentLength()];
-				 do {
-					 read = reader.read(buffer, offset, length);
-					 offset += read;
-				 }while(read != -1);
-				 
-				 String str = new String(buffer);
-  				 try {
-  					JSONTokener tokener = new JSONTokener(str);
-					JSONArray array = (JSONArray)tokener.nextValue();
-				} catch (JSONException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-					return null;
-				}
-				
+				 HttpEntity entity = response.getEntity();
+				 String contentEncoding = entity.getContentEncoding() == null ? "UTF-8" : entity.getContentEncoding().getValue();
+				 BufferedReader reader = new BufferedReader(new InputStreamReader(response.getEntity().getContent(), contentEncoding));
+			     StringBuilder builder = new StringBuilder();
+			     for (String line = null; (line = reader.readLine()) != null;) {
+			    	    builder.append(line).append("\n");
+			     }
+			     
+				JSONTokener tokener = new JSONTokener(builder.toString());
+				JSONArray array = (JSONArray)tokener.nextValue();
+				Log.i("Main", array.toString());
+			
 				return new ArrayList<Scotch>();
 
 			 } catch(IOException e) {
 					e.printStackTrace();
 					return null;
-			 }
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				return null;
+			}
+
 		}
 		
 		@Override
