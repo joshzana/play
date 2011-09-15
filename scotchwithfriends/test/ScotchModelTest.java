@@ -16,7 +16,7 @@ public class ScotchModelTest extends UnitTest {
     	Scotch found = Scotch.find("byName", "Balvenie Doublewood").first();
     	
     	assertNotNull(found);
-    	assertEquals("Balvenie", found.distilery);
+    	assertEquals("Balvenie", found.distillery);
     }
     
     @Test

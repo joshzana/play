@@ -10,14 +10,14 @@ import play.db.jpa.*;
 public class Scotch extends Model {
 	public String name;
 	public String age;
-	public String distilery;
+	public String distillery;
 	public String description;
 	public String imageUrl;
 	
 	public Scotch(String name, String age, String distillery, String description, String imageUrl) {
 		this.name = name;
 		this.age = age;
-		this.distilery = distillery;
+		this.distillery = distillery;
 		this.description = description;
 		this.imageUrl = imageUrl;
 	}
