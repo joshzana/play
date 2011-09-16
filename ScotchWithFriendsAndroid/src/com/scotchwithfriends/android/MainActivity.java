@@ -1,62 +1,95 @@
 package com.scotchwithfriends.android;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
-import android.app.Activity;
-import android.os.AsyncTask;
+import android.app.ListActivity;
 import android.os.Bundle;
-import android.widget.ListView;
-import android.widget.SimpleAdapter;
+import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.ImageView;
+import android.widget.TextView;
 
-public class MainActivity extends Activity {
+public class MainActivity extends ListActivity {
 
-	ListView list;
+	private static final String TAG = "MAIN";
+	private static final String SCOTCH_LIST_DATA_KEY = "Scotches";
+	ArrayList<Scotch> scotchListData;
 
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
-		list = (ListView)findViewById(R.id.list);
 
-		LoadScotchesTask task = new LoadScotchesTask();
-		task.execute("Josh");
+		Log.i(TAG, "onCreate " + savedInstanceState);
+
+		if(null != savedInstanceState) {
+			scotchListData = savedInstanceState.getParcelableArrayList(SCOTCH_LIST_DATA_KEY);
+			Log.i(TAG, "got array from bundle " + scotchListData);
+		}
+
+		if(scotchListData != null) {
+			setListAdapter(new ScotchListAdapter(scotchListData));
+		}
+		else {
+			ScotchListLoader loader = new ScotchListLoader(new ScotchListLoader.ScotchListLoaderCallback() {
+				public void handleListData(ArrayList<Scotch> listData) {
+					scotchListData = listData;
+					setListAdapter(new ScotchListAdapter(scotchListData));
+				}
+			});
+
+			loader.loadScotches("test");
+		}
 	}
 
-	public class LoadScotchesTask extends AsyncTask<String, Void, List<Scotch>>
-	{
-		@Override
-		protected List<Scotch> doInBackground(String... params) {
-			return ServiceHelper.fetchScotchList();
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		Log.i(TAG, "Saving InstanceState " + scotchListData);
+		outState.putParcelableArrayList(SCOTCH_LIST_DATA_KEY, scotchListData);
+		super.onSaveInstanceState(outState);
+	}
+
+	class ScotchListAdapter extends BaseAdapter {
+
+		private final ImageDownloader imageDownloader = new ImageDownloader();
+		private final ArrayList<Scotch> listData = new ArrayList<Scotch>();
+
+		public ScotchListAdapter(ArrayList<Scotch> scotchListData) {
+			// Copy. TODO: Not sure is needed
+			listData.addAll(scotchListData);
 		}
 
-
-		@Override
-		protected void onPreExecute() {
-			super.onPreExecute();
+		public int getCount() {
+			return listData.size();
 		}
 
-		@Override
-		protected void onPostExecute(List<Scotch> result) {
-			super.onPostExecute(result);
-			
-			List<Map<String, ?>> maps = new ArrayList<Map<String, ?>>();
-			
-			for(Scotch item : result) {
-				Map<String, String> map = new HashMap<String, String>();
-				map.put("name", item.name);
-				map.put("description", item.description);
-				maps.add(map);
+		public Object getItem(int position) {
+			// TODO Auto-generated method stub
+			return listData.get(position);
+		}
+
+		public long getItemId(int position) {
+			return listData.get(position).hashCode();
+		}
+
+		public View getView(int position, View convertView, ViewGroup parent) {
+			Scotch item = listData.get(position);
+
+			if (convertView == null) {
+				convertView = getLayoutInflater().inflate(R.layout.listitem, parent, false);
 			}
-			
-			String[] from = {"name", "description"};
-			int[] to = {R.id.textView1, R.id.textView2 };
-			
-			SimpleAdapter adapter = new SimpleAdapter(getApplicationContext(), maps, R.layout.listitem, from, to);
-			list.setAdapter(adapter);
+
+			TextView textView = (TextView)convertView.findViewById(R.id.textView1);
+			textView.setText(item.name);
+
+			ImageView imageView = (ImageView)convertView.findViewById(R.id.imageView1);
+
+			imageDownloader.download(item.imageUrl, imageView);
+
+			return convertView;
 		}
 	}
 }
