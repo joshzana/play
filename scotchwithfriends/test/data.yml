@@ -1,14 +1,83 @@
 # you describe your data using the YAML notation here
 # and then load them using Fixtures.load("data.yml")
 
-Scotch(balvenie):
+Scotch(balvenie1):
     name: Balvenie Doublewood
     age: 12
     distillery: Balvenie
     description: Very smooth
     imageUrl: http://www.thedrinkshop.com/images/products/main/2708/2708.jpg
 
-Scotch(glenlivet):
+Scotch(glenlivet1):
+    name: Glenlivet
+    age: 12
+    distillery: Glenlivet
+    description: Not so bad
+    imageUrl: http://www.thedrinkshop.com/images/products/main/306/306.jpg
+Scotch(balvenie2):
+    name: Balvenie Doublewood
+    age: 12
+    distillery: Balvenie
+    description: Very smooth
+    imageUrl: http://www.thedrinkshop.com/images/products/main/2708/2708.jpg
+
+Scotch(glenlivet2):
+    name: Glenlivet
+    age: 12
+    distillery: Glenlivet
+    description: Not so bad
+    imageUrl: http://www.thedrinkshop.com/images/products/main/306/306.jpg
+
+Scotch(balvenie3):
+    name: Balvenie Doublewood
+    age: 12
+    distillery: Balvenie
+    description: Very smooth
+    imageUrl: http://www.thedrinkshop.com/images/products/main/2708/2708.jpg
+
+Scotch(glenlivet3):
+    name: Glenlivet
+    age: 12
+    distillery: Glenlivet
+    description: Not so bad
+    imageUrl: http://www.thedrinkshop.com/images/products/main/306/306.jpg
+
+Scotch(balvenie4):
+    name: Balvenie Doublewood
+    age: 12
+    distillery: Balvenie
+    description: Very smooth
+    imageUrl: http://www.thedrinkshop.com/images/products/main/2708/2708.jpg
+
+Scotch(glenlivet4):
+    name: Glenlivet
+    age: 12
+    distillery: Glenlivet
+    description: Not so bad
+    imageUrl: http://www.thedrinkshop.com/images/products/main/306/306.jpg
+
+Scotch(balvenie5):
+    name: Balvenie Doublewood
+    age: 12
+    distillery: Balvenie
+    description: Very smooth
+    imageUrl: http://www.thedrinkshop.com/images/products/main/2708/2708.jpg
+
+Scotch(glenlivet5):
+    name: Glenlivet
+    age: 12
+    distillery: Glenlivet
+    description: Not so bad
+    imageUrl: http://www.thedrinkshop.com/images/products/main/306/306.jpg
+
+Scotch(balvenie6):
+    name: Balvenie Doublewood
+    age: 12
+    distillery: Balvenie
+    description: Very smooth
+    imageUrl: http://www.thedrinkshop.com/images/products/main/2708/2708.jpg
+
+Scotch(glenlivet7):
     name: Glenlivet
     age: 12
     distillery: Glenlivet
@@ -20,4 +89,4 @@ User(josh):
    fullname: Josh Zana 
    facebookId: 12324
    facebookToken: 90098098
-   scotches: [balvenie, glenlivet]
+   scotches: [balvenie1, glenlivet3]

@@ -2,10 +2,35 @@ package com.scotchwithfriends.android;
 
 import org.json.*;
 
+import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.provider.BaseColumns;
 
 public class Scotch implements Parcelable{
+	
+	public static final class ScotchColumns implements BaseColumns{
+		
+		private ScotchColumns() {}
+		
+		public static final String AUTHORITY = "com.scotchwithfriends.android";
+		public static final Uri SCOTCH_URI = Uri.parse("content://" + AUTHORITY + "/" + ScotchColumns.SCOTCH);
+		public static final Uri CONTENT_URI = SCOTCH_URI;
+		public static final String CONTENT_TYPE = "vnd.android.cursor.dir/vnd.scotchwithfriends.scotch";
+		public static final String CONTENT_SCOTCH_TYPE = "vnd.android.cursor.item/vnd.scotchwithfriends.scotch";
+
+		public static final String SCOTCH = "scotch";
+		
+		// Column names
+		public static final String NAME = "name";
+		public static final String TITLE = "title";
+		public static final String DESCRIPTION = "description";
+		public static final String DISTILLERY = "distillery";
+		public static final String IMAGE_URL = "imageUrl";
+		public static final String DEFAULT_SORT_ORDER = NAME + " ASC";
+	}
+	
+	
 	public int id;
 	public String name;
 	public String age;

@@ -13,6 +13,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <provider android:name="ScotchContentProvider" android:authorities="com.scotchwithfriends.android"></provider>
 
     </application>
 </manifest>
