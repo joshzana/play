@@ -119,6 +119,7 @@ public class ScotchContentProvider extends ContentProvider {
 
 		Cursor c;
 
+
 		switch(uriMatcher.match(uri)) {
 		case SCOTCH:
 			c = databaseHelper.getReadableDatabase().query(SCOTCH_TABLE_NAME, projection, selection, selectionArgs, null, null, orderBy);
